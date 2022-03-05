@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: antiquewhite;
+        text-align: center;
+        height: 100vh;
+        font-size: 7rem;
+    }
+
+    button {
+        font-size: 4rem;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    #app {
+        width:900px;
+        border-radius: 5px;
+        padding:10px;
+        height:800px;
+        position:absolute;
+        margin-top:-25px;
+        margin-left:-400px;
+        top:17%;
+        left:50%;
+    }
+
+</style>
+
+<body>
+    <div class="centered" id="app">
+        Count:
+        <div id="counterOutput"></div>
+        <button id="runBtn">Start/Stop</button>
+        <button id="setBtn">Reset Count</button>
+    </div>
+</body>
+</div>
+<script>
+    const counterEle = document.getElementById('counterOutput');
+    let storedCounterVal = parseInt(localStorage.getItem('count'));
+    let counterState = {};
+    Object.defineProperty(counterState, 'count', {
+        get() {
+            return parseInt(counterEle.innerText);
+        },
+        set(newVal) {
+            counterEle.innerText = newVal;
+            localStorage.setItem('count',newVal);
+        }
+    })
+    counterState.count = storedCounterVal === NaN ? 0 : storedCounterVal;
+
+    let framesPerSecond = 15;
+    let interval = 1000 / framesPerSecond;
+
+    const runBtnEle = document.getElementById('runBtn');
+    const setBtn = document.getElementById('setBtn');
+
+
+    let running = false;
+    runBtnEle.addEventListener('click', () => running = !running)
+
+    setBtn.addEventListener('click', () => { 
+        counterState.count = 0;
+    });
+
+    setInterval(() => { 
+        if (running) {
+            counterState.count = counterState.count + 1;
+        }
+    }, interval);
+
+</script>
+    
+    </html>

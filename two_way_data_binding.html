@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    Name: <input id="name" name="name" />
+</body>
+<script>
+    const formState = {};
+    const inputVal = document.getElementById('name');
+    // Two-way data binding between form control and form state object
+    Object.defineProperty(formState, 'name', {
+        get() {
+            return inputVal.value;
+        },
+        set(newVal) {
+            inputVal.value = newVal;
+        }
+    });
+    formState.name = 'BOUND TO FORM STATE OBJECT';
+
+</script>
+
+</html>
